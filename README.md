@@ -4,6 +4,8 @@
 
 ## Aplikasi Kasir SMKN 1 Kadipaten
 
+Aplikasi Kasir Koperasi Sekolah ini dikembangkan untuk memudahkan pengelolaan transaksi penjualan dan manajemen stok barang di koperasi SMKN 1 Kadipaten. Aplikasi ini menyediakan fitur-fitur penting seperti pencatatan transaksi, pelacakan stok barang secara otomatis, serta manajemen profil pengguna (kasir) yang terintegrasi. Dengan aplikasi ini, diharapkan proses administrasi koperasi dapat berjalan lebih efisien dan akurat.
+
 ### Beberapa Fitur yang tersedia:
 - Manajemen Kategori Produk
 - Manajemen Produk
