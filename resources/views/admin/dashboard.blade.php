@@ -51,7 +51,7 @@
                 <p>Total Member</p>
             </div>
             <div class="icon">
-                <i class="fa fa-users"></i> <!-- Mengganti ikon untuk Member -->
+                <i class="fa fa-id-card"></i> <!-- Mengganti ikon untuk Member -->
             </div>
             <a href="{{ route('member.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
