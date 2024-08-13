@@ -73,7 +73,7 @@
             <li class="header">REPORT</li>
             <li>
                 <a href="{{ route('laporan.index') }}">
-                    <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
+                    <i class="fa fa-line-chart"></i> <span>Laporan</span>
                 </a>
             </li>
             <li class="header">SYSTEM</li>
