@@ -21,7 +21,7 @@
                 <p>Total Kategori</p>
             </div>
             <div class="icon">
-                <i class="fa fa-cube"></i>
+                <i class="fa fa-th-large"></i> <!-- Mengganti ikon untuk Kategori -->
             </div>
             <a href="{{ route('kategori.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -36,7 +36,7 @@
                 <p>Total Produk</p>
             </div>
             <div class="icon">
-                <i class="fa fa-cubes"></i>
+                <i class="fa fa-tags"></i> <!-- Mengganti ikon untuk Produk -->
             </div>
             <a href="{{ route('produk.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -51,7 +51,7 @@
                 <p>Total Member</p>
             </div>
             <div class="icon">
-                <i class="fa fa-id-card"></i>
+                <i class="fa fa-users"></i> <!-- Mengganti ikon untuk Member -->
             </div>
             <a href="{{ route('member.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -66,7 +66,7 @@
                 <p>Total Supplier</p>
             </div>
             <div class="icon">
-                <i class="fa fa-truck"></i>
+                <i class="fa fa-briefcase"></i> <!-- Mengganti ikon untuk Supplier -->
             </div>
             <a href="{{ route('supplier.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
