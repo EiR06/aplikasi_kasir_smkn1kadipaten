@@ -57,7 +57,8 @@
 <body onload="window.print()">
     <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
     <div class="text-center">
-        <h3 style="margin-bottom: 5px;">{{ strtoupper($setting->nama_perusahaan) }}</h3>
+        <h3 style="margin: 0 5px 0 5px;">{{ strtoupper($setting->nama_perusahaan) }}</h3>
+        <h4 style="margin: 0 0 0 2px;">SMKN 1 Kadipaten</h4>
         <p>{{ strtoupper($setting->alamat) }}</p>
     </div>
     <br>
