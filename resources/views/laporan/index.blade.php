@@ -18,6 +18,10 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
+                <a href="{{ route('laporan.excel', [$tanggalAwal, $tanggalAkhir]) }}" class="btn btn-success btn-xs btn-flat">
+                    <i class="fa fa-file-excel-o"></i> Cetak Excel
+                </a>
+                    
                 <button onclick="updatePeriode()" class="btn btn-info btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Ubah Periode</button>
             </div>
             <div class="box-body table-responsive">
