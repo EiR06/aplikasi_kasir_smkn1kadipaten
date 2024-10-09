@@ -100,6 +100,49 @@
     <!-- /.col -->
 </div>
 <!-- /.row (main row) -->
+
+<!-- Ringkasan Data -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Ringkasan Data</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Pendapatan</td>
+                            <td>Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Kategori</td>
+                            <td>{{ $kategori }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Produk</td>
+                            <td>{{ $produk }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Member</td>
+                            <td>{{ $member }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Supplier</td>
+                            <td>{{ $supplier }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
