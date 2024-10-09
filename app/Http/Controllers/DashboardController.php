@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pendapatan;
 use App\Models\Kategori;
 use App\Models\Member;
 use App\Models\Pembelian;
@@ -19,6 +20,9 @@ class DashboardController extends Controller
         $produk = Produk::count();
         $supplier = Supplier::count();
         $member = Member::count();
+
+        $data_pendapatan = Pendapatan::whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])->pluck('jumlah')->toArray();
+        $total_pendapatan = array_sum($data_pendapatan);
 
         $tanggal_awal = date('Y-m-01');
         $tanggal_akhir = date('Y-m-d');
