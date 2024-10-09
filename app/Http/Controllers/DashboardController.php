@@ -26,6 +26,7 @@ class DashboardController extends Controller
         // Atur tanggal awal dan akhir
         $tanggal_awal = date('Y-m-01');
         $tanggal_akhir = date('Y-m-d');
+        $total_pengeluaran = 0;
 
         // Hitung data pendapatan berdasarkan tanggal
         $data_tanggal = array();
@@ -54,7 +55,7 @@ class DashboardController extends Controller
 
         // Render view berdasarkan level user
         if (auth()->user()->level == 1) {
-            return view('admin.dashboard', compact('kategori', 'produk', 'supplier', 'member', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan', 'total_pendapatan'));
+            return view('admin.dashboard', compact('kategori', 'produk', 'supplier', 'member', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan', 'total_pendapatan', 'total_pengeluaran'));
         } else {
             return view('kasir.dashboard');
         }
