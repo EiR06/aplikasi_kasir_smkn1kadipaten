@@ -122,6 +122,10 @@
                             <td>Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
+                            <td>Total Pengeluaran</td>
+                            <td>Rp {{ number_format($total_pengeluaran, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
                             <td>Total Kategori</td>
                             <td>{{ $kategori }}</td>
                         </tr>
