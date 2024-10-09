@@ -21,6 +21,7 @@ Aplikasi Kasir Koperasi Sekolah ini dikembangkan untuk memudahkan pengelolaan tr
   - Bulanan
   - Harian
   - Custom Tanggal
+  - Download Excel
 - Custom Tipe Nota
   - Nota Besar
   - Nota Kecil / Thermal Nota
