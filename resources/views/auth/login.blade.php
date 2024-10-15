@@ -58,4 +58,9 @@
         
     </div>
 </div>
+
+<!-- Footer -->
+<footer style="text-align: center; padding: 20px; position: relative; bottom: 0; width: 100%; color: gray;">
+    <p>&copy; {{ date('Y') }} <a href="/">{{ $setting->nama_perusahaan }}</a>. All Rights Reserved.</p>
+</footer>
 @endsection
