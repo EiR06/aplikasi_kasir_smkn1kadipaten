@@ -23,13 +23,25 @@ class LaporanController extends Controller
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
 
+    // Set judul header aplikasi
+    $sheet->mergeCells('A1:F1');
+    $sheet->setCellValue('A1', 'Laporan Pendapatan SMKN 1 Kadipaten');
+    $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+    $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+    // Set tanggal laporan
+    $sheet->mergeCells('A2:F2');
+    $sheet->setCellValue('A2', 'Periode: ' . tanggal_indonesia($awal, false) . ' s/d ' . tanggal_indonesia($akhir, false));
+    $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(12);
+    $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
     // Set judul kolom
-    $sheet->setCellValue('A1', 'No');
-    $sheet->setCellValue('B1', 'Tanggal');
-    $sheet->setCellValue('C1', 'Penjualan');
-    $sheet->setCellValue('D1', 'Pembelian');
-    $sheet->setCellValue('E1', 'Pengeluaran');
-    $sheet->setCellValue('F1', 'Pendapatan');
+    $sheet->setCellValue('A4', 'No');
+    $sheet->setCellValue('B4', 'Tanggal');
+    $sheet->setCellValue('C4', 'Penjualan');
+    $sheet->setCellValue('D4', 'Pembelian');
+    $sheet->setCellValue('E4', 'Pengeluaran');
+    $sheet->setCellValue('F4', 'Pendapatan');
 
     // Menambahkan Style untuk Header (Tebal, Tengah, dan Berwarna)
     $headerStyleArray = [
@@ -45,8 +57,8 @@ class LaporanController extends Controller
             'startColor' => ['argb' => 'FF4CAF50'], // Warna latar belakang hijau
         ],
     ];
-    $sheet->getStyle('A1:F1')->applyFromArray($headerStyleArray);
-    $sheet->getRowDimension('1')->setRowHeight(20); // Set tinggi baris header
+    $sheet->getStyle('A4:F4')->applyFromArray($headerStyleArray);
+    $sheet->getRowDimension('4')->setRowHeight(20); // Set tinggi baris header
 
     // Set lebar kolom secara otomatis
     foreach (range('A', 'F') as $columnID) {
@@ -54,7 +66,12 @@ class LaporanController extends Controller
     }
 
     // Isi data ke dalam sheet
-    $rowIndex = 2;
+    $rowIndex = 5;
+    $total_penjualan = 0;
+    $total_pembelian = 0;
+    $total_pengeluaran = 0;
+    $total_pendapatan = 0;
+
     foreach ($data as $row) {
         $sheet->setCellValue('A' . $rowIndex, $row['DT_RowIndex']);
         $sheet->setCellValue('B' . $rowIndex, $row['tanggal']);
@@ -62,6 +79,12 @@ class LaporanController extends Controller
         $sheet->setCellValue('D' . $rowIndex, $row['pembelian']);
         $sheet->setCellValue('E' . $rowIndex, $row['pengeluaran']);
         $sheet->setCellValue('F' . $rowIndex, $row['pendapatan']);
+
+        // Konversi string menjadi float untuk penjumlahan
+        $total_penjualan += (float)str_replace(',', '', $row['penjualan']);
+        $total_pembelian += (float)str_replace(',', '', $row['pembelian']);
+        $total_pengeluaran += (float)str_replace(',', '', $row['pengeluaran']);
+        $total_pendapatan += (float)str_replace(',', '', $row['pendapatan']);
 
         // Menambahkan border untuk setiap baris data
         $sheet->getStyle('A' . $rowIndex . ':F' . $rowIndex)->applyFromArray([
@@ -85,8 +108,26 @@ class LaporanController extends Controller
         $rowIndex++;
     }
 
+    // Tambahkan baris total di bawah data
+    $sheet->setCellValue('A' . $rowIndex, '');
+    $sheet->setCellValue('B' . $rowIndex, 'Total');
+    $sheet->setCellValue('C' . $rowIndex, format_uang($total_penjualan));
+    $sheet->setCellValue('D' . $rowIndex, format_uang($total_pembelian));
+    $sheet->setCellValue('E' . $rowIndex, format_uang($total_pengeluaran));
+    $sheet->setCellValue('F' . $rowIndex, format_uang($total_pendapatan));
+
+    // Menambahkan style untuk baris total
+    $sheet->getStyle('A' . $rowIndex . ':F' . $rowIndex)->applyFromArray([
+        'font' => ['bold' => true],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ]);
+
     // Buat nama file
-    $fileName = 'Laporan-Pendapatan-' . $awal . '-sd-' . $akhir . '.xlsx';
+    $fileName = 'Laporan-Pendapatan-SMKN1-' . $awal . '-sd-' . $akhir . '.xlsx';
 
     // Set header agar file bisa diunduh
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
