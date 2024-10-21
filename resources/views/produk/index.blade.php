@@ -25,7 +25,7 @@
                     @csrf
                     <div class="col-lg-6">
                         <select name="id_kategori" id="id_kategori" class="form-control" required>
-                            <option value="">Pilih Kategori</option>
+                            <option value="">--- Pilih Kategori ---</option>
                             @foreach ($kategori as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
