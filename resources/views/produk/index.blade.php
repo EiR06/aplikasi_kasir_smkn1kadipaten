@@ -23,6 +23,15 @@
             <div class="box-body table-responsive">
                 <form action="" method="post" class="form-produk">
                     @csrf
+                    <div class="col-lg-6">
+                        <select name="id_kategori" id="id_kategori" class="form-control" required>
+                            <option value="">Pilih Kategori</option>
+                            @foreach ($kategori as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                        <span class="help-block with-errors"></span>
+                    </div>
                     <table class="table table-stiped table-bordered">
                         <thead>
                             <th width="5%">
@@ -61,6 +70,9 @@
             autoWidth: false,
             ajax: {
                 url: '{{ route('produk.data') }}',
+                data: function (d) {
+                    d.id_kategori = $('#id_kategori').val(); // Kirim id_kategori saat memuat ulang tabel
+                }
             },
             columns: [
                 {data: 'select_all', searchable: false, sortable: false},
@@ -179,5 +191,14 @@
                 .submit();
         }
     }
+
+    $('#id_kategori').on('change', function () {
+            table.ajax.reload(); // Reload DataTable saat kategori berubah
+        });
+
+        // Select All functionality
+        $('#select_all').on('click', function () {
+            $(':checkbox').prop('checked', this.checked);
+        });
 </script>
 @endpush
