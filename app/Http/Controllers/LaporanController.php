@@ -113,45 +113,52 @@ class LaporanController extends Controller
     }
 
     public function getData($awal, $akhir)
-    {
-        $no = 1;
-        $data = array();
-        $pendapatan = 0;
-        $total_pendapatan = 0;
+{
+    $no = 1;
+    $data = array();
+    $pendapatan = 0;
+    $total_pendapatan = 0;
+    $total_penjualan_all = 0;
+    $total_pembelian_all = 0;
+    $total_pengeluaran_all = 0;
 
-        while (strtotime($awal) <= strtotime($akhir)) {
-            $tanggal = $awal;
-            $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+    while (strtotime($awal) <= strtotime($akhir)) {
+        $tanggal = $awal;
+        $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
 
-            $total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
-            $total_pembelian = Pembelian::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
-            $total_pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal%")->sum('nominal');
+        $total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
+        $total_pembelian = Pembelian::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
+        $total_pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal%")->sum('nominal');
 
-            $pendapatan = $total_penjualan - $total_pembelian - $total_pengeluaran;
-            $total_pendapatan += $pendapatan;
+        $total_penjualan_all += $total_penjualan;
+        $total_pembelian_all += $total_pembelian;
+        $total_pengeluaran_all += $total_pengeluaran;
 
-            $row = array();
-            $row['DT_RowIndex'] = $no++;
-            $row['tanggal'] = tanggal_indonesia($tanggal, false);
-            $row['penjualan'] = format_uang($total_penjualan);
-            $row['pembelian'] = format_uang($total_pembelian);
-            $row['pengeluaran'] = format_uang($total_pengeluaran);
-            $row['pendapatan'] = format_uang($pendapatan);
+        $pendapatan = $total_penjualan - $total_pembelian - $total_pengeluaran;
+        $total_pendapatan += $pendapatan;
 
-            $data[] = $row;
-        }
+        $row = array();
+        $row['DT_RowIndex'] = $no++;
+        $row['tanggal'] = tanggal_indonesia($tanggal, false);
+        $row['penjualan'] = format_uang($total_penjualan);
+        $row['pembelian'] = format_uang($total_pembelian);
+        $row['pengeluaran'] = format_uang($total_pengeluaran);
+        $row['pendapatan'] = format_uang($pendapatan);
 
-        $data[] = [
-            'DT_RowIndex' => '',
-            'tanggal' => '',
-            'penjualan' => '',
-            'pembelian' => '',
-            'pengeluaran' => 'Total Pendapatan',
-            'pendapatan' => format_uang($total_pendapatan),
-        ];
-
-        return $data;
+        $data[] = $row;
     }
+
+    $data[] = [
+        'DT_RowIndex' => '',
+        'tanggal' => '',
+        'penjualan' => 'Total Penjualan : ' . format_uang($total_penjualan_all),
+        'pembelian' => 'Total Pembelian : ' . format_uang($total_pembelian_all),
+        'pengeluaran' => 'Total Pengeluaran : ' . format_uang($total_pengeluaran_all),
+        'pendapatan' => 'Total Pendapatan : ' . format_uang($total_pendapatan),
+    ];
+
+    return $data;
+}
 
     public function data($awal, $akhir)
     {
