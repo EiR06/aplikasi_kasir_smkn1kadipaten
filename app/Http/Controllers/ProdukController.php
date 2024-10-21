@@ -21,13 +21,15 @@ class ProdukController extends Controller
         return view('produk.index', compact('kategori'));
     }
 
-    public function data()
-    {
+    public function data(Request $request) {
         $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
-            ->select('produk.*', 'nama_kategori')
-            // ->orderBy('kode_produk', 'asc')
-            ->get();
-
+            ->select('produk.*', 'kategori.nama_kategori');
+    
+        // Tambahkan filter berdasarkan kategori jika ada
+        if ($request->id_kategori) {
+            $produk->where('produk.id_kategori', $request->id_kategori);
+        }
+    
         return datatables()
             ->of($produk)
             ->addIndexColumn()
